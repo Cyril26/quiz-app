@@ -73,12 +73,19 @@ const Quiz = ({ questions, loading }) => {
     setShowResult(false);
   };
 
+  // allows you to parse HTML or XML text into a DOM
+  const parser = new DOMParser();
+  //method to parse the question string as HTML and obtain a DOM representation
+  const decodedQuestion = parser.parseFromString(question, "text/html").body
+    .textContent;
+
   return (
     <div className="quiz-container">
       {!showResult ? (
         <>
           <span className="current">{category}</span>
-          <h2>{question}</h2>
+          {/* dangerouslySetInnerHTML:  insert HTML content as it is  */}
+          <h2 dangerouslySetInnerHTML={{ __html: decodedQuestion }}></h2>
           <ul className="ul-answer">
             {answers.map((answer, i) => (
               <li
