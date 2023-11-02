@@ -1,0 +1,88 @@
+$primary: #150080;
+$accent: #d08642;
+$bg: #ffffff;
+$bg-accent: #e7e8e9;
+$disabled: #9c9c9c;
+$foreground: #2d264b;
+
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background: rgb(185, 185, 185);
+    color: $foreground;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 30px;
+    height: 80vh;
+}
+
+.quiz-container {
+    width: 500px;
+    background: $bg;
+    border-radius: 4px;
+    margin-top: 100px;
+    padding: 30px;
+    box-sizing: border-box;
+    
+    .current {
+        font-size: 32px;
+        font-weight: 500;
+        color: $primary;
+    }
+
+    .current {
+        font-size: 16px;
+        font-weight: 500;
+        color: $disabled;
+    }
+
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        padding: 0;
+
+        li {
+            text-decoration: none;
+            list-style: none;
+            color: $foreground;
+            border-radius: 16px;
+            cursor: pointer;
+            background: $bg;
+            margin-top: 5px;
+            padding: 10px;
+        }
+        
+        .selected {
+            background: $primary;
+            border: 1px solid $accent;
+            color: $bg;
+        }
+    }
+        
+        .footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        button {
+            background: rgb(185, 185, 185);
+            border-radius: 10px;
+            font-size: 15px;
+            color: $bg;
+            padding: 6px 20px;
+            outline: none;
+            border: none;
+            margin-top: 15px;
+            cursor: pointer;
+
+            &:disabled {
+                background: $bg-accent;
+                color: $disabled;
+                cursor: not-allowed;
+            }
+        }
+
+}
