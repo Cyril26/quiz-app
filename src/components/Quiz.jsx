@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { resultInitialState } from "../constants";
+import { answers, resultInitialState } from "../constants";
 import Result from "./Result";
 import Loader from "./Loader";
 
@@ -11,8 +11,6 @@ const Quiz = ({ questions, loading }) => {
   const [showResult, setShowResult] = useState(false); //used to denote end of quiz
   const [report, setReport] = useState([]); //used to store final report of test
 
-  const answers = ["True", "False"];
-
   // wait for questions to load else component will render before questions is returned from api
   if (loading) {
     return <Loader />;
@@ -22,11 +20,13 @@ const Quiz = ({ questions, loading }) => {
   }
 
   const handleSelectAnswer = (answer, i) => {
-    //set the index of number
+    //set the index of answer
+    //helps compare the user's choice with the correct answer
     setAnswerIndex(i);
 
     // conversion because the correct_answer is a capitalized string from api
     // before comparison: true === 'True'
+    // stored as string so we can compare with correct_answer from api which is also a string
     const stringAnswer = answer ? "True" : "False";
     const isCorrectAnswer =
       stringAnswer.toLowerCase() === correct_answer.toLowerCase();
@@ -40,9 +40,12 @@ const Quiz = ({ questions, loading }) => {
       answer,
     };
 
+    //saves a report of questions and answers we selected so far
     setReport((prev) => [...prev, answerObject]);
 
     setAnswerIndex(null); //resets the answer index to disable the next button
+    //updates the current question number and score
+    //keeps track of number of corrects and wrongs
     setResult((prev) =>
       answer
         ? {
@@ -56,13 +59,12 @@ const Quiz = ({ questions, loading }) => {
           }
     );
 
-    //if not last question
+    //if not last question, move to next, else render result and restart
     if (currentQuestion !== questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
     } else {
-      //reset and navigate to results screen
-      setCurrentQuestion(0);
       setShowResult(true);
+      setCurrentQuestion(0);
     }
   };
 
@@ -73,7 +75,7 @@ const Quiz = ({ questions, loading }) => {
     setShowResult(false);
   };
 
-  // allows you to parse HTML or XML text into a DOM
+  // allows you to parse HTML or XML text into a DOM structure
   const parser = new DOMParser();
   //method to parse the question string as HTML and obtain a DOM representation
   const decodedQuestion = parser.parseFromString(question, "text/html").body
@@ -84,7 +86,7 @@ const Quiz = ({ questions, loading }) => {
       {!showResult ? (
         <>
           <span className="current">{category}</span>
-          {/* dangerouslySetInnerHTML:  insert HTML content as it is  */}
+          {/* dangerouslySetInnerHTML:  insert HTML content as itshould be  */}
           <h2 dangerouslySetInnerHTML={{ __html: decodedQuestion }}></h2>
           <ul className="ul-answer">
             {answers.map((answer, i) => (
@@ -98,12 +100,13 @@ const Quiz = ({ questions, loading }) => {
             ))}
           </ul>
           <span className="current">
+            {/* count from one */}
             {currentQuestion + 1}/{questions.length}
           </span>
           <div className="footer">
             <button
               onClick={onNext}
-              disabled={answerIndex === null}
+              disabled={answerIndex === null} //makes sure user selects an answer before moving to next question
               className="btn-con"
             >
               {currentQuestion === questions.length - 1 ? "Finish" : "Next"}

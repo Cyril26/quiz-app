@@ -2,6 +2,9 @@ import correctImage from "../assets/correct.png";
 import wrongImage from "../assets/wrong.png";
 
 const Result = ({ totalQuestions, result, onTryAgain, report }) => {
+  //prove the score is right
+  console.log(report);
+
   return (
     <div className="report">
       <h3>You scored</h3>

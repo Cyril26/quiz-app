@@ -31,13 +31,6 @@ body {
     box-shadow: 5px 5px 10px #888888;
     ;
 
-
-    .current {
-        font-size: 32px;
-        font-weight: 500;
-        color: $primary;
-    }
-
     .current {
         font-size: 16px;
         font-weight: 500;
@@ -104,8 +97,11 @@ body {
     border-radius: 5px;
     border-style: none;
     text-decoration: none;
-    background: $primary;
+    background: $disabled;
     margin-top: 20px;
+    &:hover{
+        background: $primary;
+    }
 }
 
 .welcome {

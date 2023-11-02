@@ -3,3 +3,5 @@ export const resultInitialState = {
   correctAnswers: 0,
   wrongAnswers: 0,
 };
+
+export const answers = ["True", "False"];
