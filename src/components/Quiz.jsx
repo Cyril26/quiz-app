@@ -5,15 +5,15 @@ import Loader from "./Loader";
 
 const Quiz = ({ questions }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0); //set to first question
-  const [answer, setAnswer] = useState(null);
-  const [answerIndex, setAnswerIndex] = useState(null);
-  const [result, setResult] = useState(resultInitialState);
-  const [showResult, setShowResult] = useState(false);
-  const [report, setReport] = useState([]);
+  const [answer, setAnswer] = useState(null); //actual answer
+  const [answerIndex, setAnswerIndex] = useState(null); //answer index
+  const [result, setResult] = useState(resultInitialState); //
+  const [showResult, setShowResult] = useState(false); //used to denote end of quiz
+  const [report, setReport] = useState([]); //used to store final report of test
 
   const answers = ["True", "False"];
 
-  // wait for questions to load
+  // wait for questions to load else component will render before questions is returned from api
   if (questions.length === 0 || currentQuestion >= questions.length) {
     return <Loader />;
   } else {
@@ -22,16 +22,18 @@ const Quiz = ({ questions }) => {
   }
 
   const handleSelectAnswer = (answer, i) => {
+    //set the index of number
     setAnswerIndex(i);
-    const stringAnswer = answer ? "True" : "False"; // Convert boolean to string
+
+    // conversion because the correct_answer is a capitalized string from api
+    // before comparison: true === 'True'
+    const stringAnswer = answer ? "True" : "False";
     const isCorrectAnswer =
       stringAnswer.toLowerCase() === correct_answer.toLowerCase();
     setAnswer(isCorrectAnswer);
   };
 
   const onNext = () => {
-    console.log(answer);
-    console.log(question);
     const answerObject = {
       question,
       correct_answer,
@@ -40,7 +42,7 @@ const Quiz = ({ questions }) => {
 
     setReport((prev) => [...prev, answerObject]);
 
-    setAnswerIndex(null);
+    setAnswerIndex(null); //resets the answer index to disable the next button
     setResult((prev) =>
       answer
         ? {
@@ -64,6 +66,7 @@ const Quiz = ({ questions }) => {
     }
   };
 
+  //sets app state to initial values
   const onTryAgain = () => {
     setResult(resultInitialState);
     setReport([]);
