@@ -3,7 +3,7 @@ import { resultInitialState } from "../constants";
 import Result from "./Result";
 import Loader from "./Loader";
 
-const Quiz = ({ questions }) => {
+const Quiz = ({ questions, loading }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0); //set to first question
   const [answer, setAnswer] = useState(null); //actual answer
   const [answerIndex, setAnswerIndex] = useState(null); //answer index
@@ -14,7 +14,7 @@ const Quiz = ({ questions }) => {
   const answers = ["True", "False"];
 
   // wait for questions to load else component will render before questions is returned from api
-  if (questions.length === 0 || currentQuestion >= questions.length) {
+  if (loading) {
     return <Loader />;
   } else {
     // used var to make variables available globally
