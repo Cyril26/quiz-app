@@ -17,13 +17,21 @@ body {
 }
 
 .quiz-container {
-    width: 500px;
+    width: 800px;
     background: $bg;
     border-radius: 4px;
     margin-top: 100px;
     padding: 30px;
     box-sizing: border-box;
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 5px 5px 10px #888888;
+    ;
+
+
     .current {
         font-size: 32px;
         font-weight: 500;
@@ -41,7 +49,6 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
-
         padding: 0;
 
         li {
@@ -54,35 +61,90 @@ body {
             margin-top: 5px;
             padding: 10px;
         }
-        
+
         .selected {
-            background: $primary;
+            background: $accent;
             border: 1px solid $accent;
             color: $bg;
         }
     }
+
+    .footer {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .button {
+        background: rgb(185, 185, 185);
+        border-radius: 10px;
+        font-size: 15px;
+        color: $bg;
+        padding: 6px 20px;
+        outline: none;
+        border: none;
+        margin-top: 15px;
+        cursor: pointer;
+
+        &:disabled {
+            background: $bg-accent;
+            color: $disabled;
+            cursor: not-allowed;
+        }
+    }
+
+}
+
+.btn-con {
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 10px 10px;
+    cursor: pointer;
+    transition-duration: .8s;
+    color: #fff;
+    border-radius: 5px;
+    border-style: none;
+    text-decoration: none;
+    background: $primary;
+    margin-top: 20px;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.report {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .report-list{
+        align-items: start;
+        text-align: start;
+        text-decoration: none;
+        list-style: none;
+        cursor: auto;
         
-        .footer {
-            display: flex;
-            justify-content: flex-end;
+        img {
+            height: 20px;
+            margin-right: 20px;
         }
 
-        button {
-            background: rgb(185, 185, 185);
-            border-radius: 10px;
-            font-size: 15px;
-            color: $bg;
-            padding: 6px 20px;
-            outline: none;
-            border: none;
-            margin-top: 15px;
-            cursor: pointer;
+        .report-item{
+            display: flex;
+            align-items: center;
 
-            &:disabled {
-                background: $bg-accent;
-                color: $disabled;
-                cursor: not-allowed;
+            .correct-answer{
+                color: green;
             }
         }
+    }
+}
 
+.loader {
+    color: white;
 }
