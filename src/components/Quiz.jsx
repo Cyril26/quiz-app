@@ -14,10 +14,10 @@ const Quiz = ({ questions, loading }) => {
   // wait for questions to load else component will render before questions is returned from api
   if (loading) {
     return <Loader />;
-  } else {
-    // used var to make variables available globally
-    var { question, correct_answer, category } = questions[currentQuestion];
   }
+
+  // used var to make variables available globally
+  let { question, correct_answer, category } = questions[currentQuestion];
 
   const handleSelectAnswer = (answer, i) => {
     //set the index of answer
@@ -51,7 +51,7 @@ const Quiz = ({ questions, loading }) => {
         ? {
             ...prev,
             score: prev.score + 1,
-            correctAnswers: prev.correctAnswers + 1,
+            // correctAnswers: prev.correctAnswers + 1,
           }
         : {
             ...prev,
